@@ -1,0 +1,22 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-1">
+                    <input #searchInput class="au-input au-input-xl" type="text" placeholder="Search for data ..." (keyup.enter)="sendRequest(searchInput.value)" value="XLU"/>
+                    <button (click)="sendRequest(searchInput.value)" class="au-btn-submit calculate-button" type="submit">
+                        Calculate
+                    </button>
+                </div>
+                
+    
+    
+                <canvas *ngIf="dailyData.length >0"baseChart class="chart"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [type]="lineChartType"></canvas>
+        <h3 *ngIf="dailyData.length <1" >Loading...</h3>
+            </div>
+        </div>
+    </div>
+</div>

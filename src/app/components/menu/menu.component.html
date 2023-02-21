@@ -1,0 +1,42 @@
+<div class="menu-sidebar-content js-scrollbar1">
+    <nav class="navbar-sidebar">
+        <ul class="list-unstyled navbar-list">
+            <li>
+                <a routerLink="carvana/chart" routerLinkActive="active-link">  
+                    <img src="../../../assets/car.png" height=50px width="50px" class="img-responsive">
+                    Carvana
+                </a>
+            </li>
+            <li>
+                <a routerLink="boxoffice/chart" routerLinkActive="active-link"> 
+                    <img src="../../../assets/film-removebg-preview.png" height=50px width="50px" class="img-responsive">
+                    Box Office
+                </a>
+            </li>
+            <li>
+                <a routerLink="fractalRanges/chart" routerLinkActive="active-link"> 
+                    <img src="../../../assets/chart.png" height=50px width="50px" class="img-responsive">
+                    Fractal Ranges
+                </a>
+            </li>
+            <li>
+                <a routerLink="/dummyProtected" routerLinkActive="active-link"> 
+                    <img src="../../../assets/lock.png" height=50px width="50px" class="img-responsive">
+                    Account
+                </a>
+            </li>
+            <li *ngIf="!isAuthenticated" class="remove-deco">
+                <a routerLink="/login" routerLinkActive="active-link"> 
+                    <img src="../../../assets/login.png" height=50px width="50px" class="img-responsive">
+                    Login
+                </a>
+            </li>
+            <li *ngIf="isAuthenticated" class="remove-deco">
+                <a (click)="logout()"> 
+                    <img src="../../../assets/logout.png" height=50px width="50px" class="img-responsive">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

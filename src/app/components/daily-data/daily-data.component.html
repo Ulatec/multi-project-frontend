@@ -1,0 +1,36 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                            <div *ngIf="dailyData.length > 0">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th width="20%">Date</th>
+                                        <th width="10%">Sold</th>
+                                        <th width="10%">New Listings</th>
+                                        <th width="10%">Last Seen</th>
+                                        <th width="10%">Total Dollars</th>
+                                    </tr>
+                
+                                    <tr *ngFor="let daily of dailyData">
+                                        <td class="ml-4">
+                                            {{ daily.date | date: 'shortDate' }}
+                                        </td>
+                                        <td>
+                                            {{ daily.countOfSold }}
+                                        </td>
+                                        <td>
+                                            {{ daily.countOfNewListings }}
+                                        </td>
+                                        <td>
+                                            {{ daily.countOfLastSeen }}
+                                        </td>
+                                        <td>
+                                            {{ daily.countOfSalesDollars  | currency: 'USD'}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+            </div>
+    </div>
+</div>

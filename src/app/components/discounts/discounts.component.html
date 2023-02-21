@@ -1,0 +1,32 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <h1>Unsold Vehicles with largest discounts</h1>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>Vehicle</th>
+                            <th>VIN</th>
+                            <th>Price</th>
+                            <th>Write Down</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let vehicle of vehicles">
+                            <td class="align-middle">
+                                <a href="https://www.carvana.com/vehicle/{{vehicle.vehicleId}}" target="_blank"><img src="{{ vehicle.imageUrl }}" height="100rem" width="100rem" /></a>
+                            </td>
+                            <td class="align-middle"><a href="https://www.carvana.com/vehicle/{{vehicle.vehicleId}}" target="_blank">{{vehicle.vehicleYear}} {{vehicle.vehicleMake}} {{vehicle.vehicleModel}}</a></td>
+                            <td class="align-middle"><a href="https://www.carvana.com/vehicle/{{vehicle.vehicleId}}" target="_blank">{{vehicle.vin}}</a></td>
+                            <td class="align-middle">{{vehicle.mostRecentPrice | currency:'USD'}}</td>
+                            <td class="align-middle">{{vehicle.writeDown | currency: 'USD'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-1">
+                    <label class="light-color mr-4">Days to calculate rolling average </label>
+                    <br>
+                    <select #starttype id="start-type" 
+            ng-model="daysAverageToCalculate" (change)="setDaysAverage(starttype.value)">
+            <option>7</option>
+            <option>14</option>
+            <option>30</option>
+        </select>
+                </div>
+                <div class="col-xs-1">
+                <canvas baseChart class="chart"
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        [type]="lineChartType"></canvas>
+        <div class="input-space w-25">
+            <label class="pb-0 mb-0">Days to Average</label>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
