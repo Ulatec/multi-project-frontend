@@ -150,22 +150,6 @@ export class ChartComponent implements OnInit {
       legend: { display: true },
       annotation: {
         annotations: [
-          // {
-          //   type: 'line',
-          //   scaleID: 'x',
-          //   value: 'March',
-          //   borderColor: 'orange',
-          //   borderWidth: 2,
-          //   label: {
-          //     display: false,
-          //     position: 'center',
-          //     color: 'orange',
-          //     content: 'LineAnno',
-          //     font: {
-          //       weight: 'bold'
-          //     }
-          //   }
-          // },
         ],
       }
     }
@@ -179,23 +163,7 @@ export class ChartComponent implements OnInit {
     return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
   }
 
-  public randomize(): void {
-    for (let i = 0; i < this.lineChartData.datasets.length; i++) {
-      for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
-        this.lineChartData.datasets[i].data[j] = ChartComponent.generateNumber(i);
-      }
-    }
-    this.chart?.update();
-  }
-
   // events
-  public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
-  }
 
   public hideOne(): void {
     const isHidden = this.chart?.isDatasetHidden(1);

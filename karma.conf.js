@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/carvana-front-end'),
+      dir: require('path').join(__dirname, './coverage/multi-project-frontend'),
       subdir: '.',
       reporters: [
         { type: 'html' },

@@ -17,9 +17,6 @@ export class DiscountsComponent implements OnInit {
   constructor(private vehicleService: VehicleService) { }
 
   ngOnInit(): void {
-    // setInterval(() => {
-    //   this.updateData();
-    // }, 30000);
     this.updateData();
   }
 

@@ -142,11 +142,9 @@ export class FractalRangeComponent implements OnInit {
       }
     }
   };
-
   public lineChartType: ChartType = 'line';
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
 
   // events
 

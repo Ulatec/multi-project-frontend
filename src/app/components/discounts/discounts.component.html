@@ -17,7 +17,9 @@
                     <tbody>
                         <tr *ngFor="let vehicle of vehicles">
                             <td class="align-middle">
-                                <a href="https://www.carvana.com/vehicle/{{vehicle.vehicleId}}" target="_blank"><img src="{{ vehicle.imageUrl }}" height="100rem" width="100rem" /></a>
+                                <a href="https://www.carvana.com/vehicle/{{vehicle.vehicleId}}" target="_blank">
+                                    <img *ngIf="vehicle.imageUrl && vehicle.imageUrl!==''" src="{{ vehicle.imageUrl }}" height="100rem" width="100rem" />
+                                </a>
                             </td>
                             <td class="align-middle"><a href="https://www.carvana.com/vehicle/{{vehicle.vehicleId}}" target="_blank">{{vehicle.vehicleYear}} {{vehicle.vehicleMake}} {{vehicle.vehicleModel}}</a></td>
                             <td class="align-middle"><a href="https://www.carvana.com/vehicle/{{vehicle.vehicleId}}" target="_blank">{{vehicle.vin}}</a></td>
