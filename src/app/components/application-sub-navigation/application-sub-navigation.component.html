@@ -1,35 +1,36 @@
-<div class="form-header">
-
-    <!-- <input #searchInput class="au-input au-input-xl" type="text"
-     placeholder="Search for data ..." (keyup.enter)="doSearch(searchInput.value)" /> -->
-    <a routerLink="/carvana/chart" routerLinkActive="active-link">
-        <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
-            Chart
-        </button>
-    </a>
-    <a routerLink="/carvana/discounts" routerLinkActive="active-link">
-        <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
-            Discounts
-        </button>
-    </a>
-    <a routerLink="/carvana/dailydata" routerLinkActive="active-link">
-        <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
-            Raw
-        </button>
-    </a>
-    <a routerLink="/carvana/forecast" routerLinkActive="active-link">
-        <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
-            Forecast
-        </button>
-    </a>
-    <a routerLink="/boxoffice/chart" routerLinkActive="active-link">
-        <button *ngIf="urlPrefix.includes('boxoffice')" class="au-btn-submit" type="submit">
-            Chart
-        </button>
-    </a>
-    <a routerLink="/boxoffice/topmovies" routerLinkActive="active-link">
-        <button *ngIf="urlPrefix.includes('boxoffice')" class="au-btn-submit" type="submit">
-            Top Movies
-        </button>
-    </a>
+<div class="form-header" *ngSwitch="">
+    <ng-container>
+        <a routerLink="/carvana/chart" routerLinkActive="active-link">
+            <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
+                Chart
+            </button>
+        </a>
+        <a routerLink="/carvana/discounts" routerLinkActive="active-link">
+            <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
+                Discounts
+            </button>
+        </a>
+        <a routerLink="/carvana/dailydata" routerLinkActive="active-link">
+            <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
+                Raw
+            </button>
+        </a>
+        <a routerLink="/carvana/forecast" routerLinkActive="active-link">
+            <button *ngIf="urlPrefix.includes('carvana')" class="au-btn-submit" type="submit">
+                Forecast
+            </button>
+        </a>
+    </ng-container>
+    <ng-container>
+        <a routerLink="/boxoffice/chart" routerLinkActive="active-link">
+            <button *ngIf="urlPrefix.includes('boxoffice')" class="au-btn-submit" type="submit">
+                Chart
+            </button>
+        </a>
+        <a routerLink="/boxoffice/topmovies" routerLinkActive="active-link">
+            <button *ngIf="urlPrefix.includes('boxoffice')" class="au-btn-submit" type="submit">
+                Top Movies
+            </button>
+        </a>
+    </ng-container>
 </div>
