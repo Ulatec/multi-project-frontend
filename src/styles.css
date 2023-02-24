@@ -538,15 +538,6 @@ select{
     padding:10% 15%!important
 }
 
-/* 
- * ----------------------------
- * Products List
- * ----------------------------
- */
-
-.product-box img {
-    width: 150px;
-}
 
 .items select {
     width: 100px;
@@ -557,14 +548,6 @@ select{
     outline: 0;
     margin-left: 5px;
 }
-.product-box{
-    margin-bottom:60px
-}
-.price{
-    margin:15px 0 0;
-    font-weight:800;
-    color:#0da8e4
-}
 .product-box h1{
     font-size:18px;
     border-bottom:1px solid #ccc;
@@ -573,22 +556,11 @@ select{
     padding-top:12px;
     margin-bottom:7px
 }
-.product-box h2{
-    font-size:15px;
-    padding-bottom:0;
-    font-weight:500;
-    color:#585858
-}
 .calculate-button{
     border-radius:40px!important;
     height:45px;
 }
 
-/* 
- * ----------------------------
- * Shopping Cart Checkout
- * ----------------------------
- */
 
 .form-area{
     background:#e5e5e5;
@@ -695,11 +667,6 @@ option:first{
     color:#ccc
 }
 
-/* 
- * ----------------------------
- * Shopping Cart Details
- * ----------------------------
- */
 
 .table{
     margin:0
@@ -737,11 +704,6 @@ th,td{
     color:#e5e5e5
 }
 
-/* 
- * ----------------------------
- * Product Details
- * ----------------------------
- */
 
  .price{
     margin:15px 0 0;

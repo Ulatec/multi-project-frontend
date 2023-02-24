@@ -14,8 +14,8 @@ export class ApplicationSubNavigationComponent implements OnInit {
     console.log(`${this.router.url}`)
 
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe((e: NavigationEnd) => {
-      console.log(`${this.urlPrefix}`)
        this.urlPrefix = e.url 
+       console.log(`${this.urlPrefix}`)
       });
   
   }

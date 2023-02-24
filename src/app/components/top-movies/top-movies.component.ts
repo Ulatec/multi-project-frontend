@@ -9,8 +9,8 @@ import { BoxofficeService } from 'src/app/services/boxoffice.service';
 })
 export class TopMoviesComponent implements OnInit {
   movies: Movie[] = [];
-  pageNumber: number = 1;
-  pageSize: number = 20;
+  private pageNumber: number = 1;
+  private pageSize: number = 20;
   constructor(private boxOfficeService: BoxofficeService) { }
 
   ngOnInit(): void {
@@ -23,7 +23,6 @@ export class TopMoviesComponent implements OnInit {
   }
   processResult() {
     return (data: any) => {
-      console.log(data);
       this.movies = data._embedded.movies;
       this.pageNumber = data.page.number + 1;
       this.pageSize = data.page.size;

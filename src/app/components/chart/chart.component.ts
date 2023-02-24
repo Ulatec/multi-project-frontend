@@ -30,7 +30,6 @@ export class ChartComponent implements OnInit {
 
   buildChartOptions(daysToAverage: number) {
     this.clearExistingChartData();
-    console.log(`${this.dailyData}`)
     for (let i = 0; i < this.dailyData.length; i++) {
       let salesTotal = 0;
       let newListingsTotal = 0;
@@ -38,7 +37,6 @@ export class ChartComponent implements OnInit {
       //check if daysToAverage days of data available
       if (i + daysToAverage < this.dailyData.length) {
         for (let j = i; j < i + daysToAverage; j++) {
-          console.log(`${this.dailyData[j].countOfSold}`)
           salesTotal += this.dailyData[j].countOfSold
           newListingsTotal += this.dailyData[j].countOfNewListings;
           salesDollarsTotal += this.dailyData[j].countOfSalesDollars;
@@ -52,7 +50,7 @@ export class ChartComponent implements OnInit {
     }
     this.chart?.update();
   }
-  setDaysAverage(value: any){
+  setDaysAverage(value: string){
     this.daysAverageToCalculate = Number.parseInt(value)
     this.updateData();
   }

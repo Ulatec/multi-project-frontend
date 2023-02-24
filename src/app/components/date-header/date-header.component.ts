@@ -10,7 +10,7 @@ export class DateHeaderComponent implements OnInit {
   constructor() { 
     setInterval(() => {
       this.date = new Date();
-    }, 1);
+    }, 1000);
   }
 
   ngOnInit(): void {
