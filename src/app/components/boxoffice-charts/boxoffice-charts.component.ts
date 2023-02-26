@@ -1,10 +1,16 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
 import { Chart, ChartConfiguration, ChartEvent, ChartType, scales } from 'chart.js';
 import Annotation from 'chartjs-plugin-annotation';
+import { is } from 'date-fns/locale';
 import { BaseChartDirective } from 'ng2-charts';
 import { BoxOfficeDaily } from 'src/app/common/box-office-daily';
+import { Setting } from 'src/app/common/setting';
+import { UserSettingRequest } from 'src/app/common/user-setting-request';
 import { BoxofficeService } from 'src/app/services/boxoffice.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-boxoffice-charts',
@@ -12,18 +18,31 @@ import { BoxofficeService } from 'src/app/services/boxoffice.service';
   styleUrls: ['./boxoffice-charts.component.css']
 })
 export class BoxofficeChartsComponent implements OnInit {
+  isAuthenticated: boolean = false;
   comparisonYear: Number = 2022;
   newLabel: string | undefined;
   dailyData: BoxOfficeDaily[] = [];
   chartOptions!: any;
   today: Date = new Date();
-  constructor(private boxOfficeServer: BoxofficeService, private datePipe: DatePipe) {
+  constructor(private oktaAuthService: OktaAuthStateService,
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth,
+    private boxOfficeServer: BoxofficeService, private datePipe: DatePipe, private settingsService: SettingsService) {
     Chart.register(Annotation)
 
   }
 
   ngOnInit(): void {
-    this.updateData(2022);
+    this.oktaAuthService.authState$.subscribe(
+      (result) => {
+        this.isAuthenticated = result.isAuthenticated!;
+        if(this.isAuthenticated){
+          this.retrieveUserSetting("boxOfficeYear")
+        }else{
+          this.updateData(2022)
+        }
+        console.log(this.isAuthenticated)
+      }
+    )
   }
   buildChartOptions() {
     this.clearExistingChartData();
@@ -40,11 +59,42 @@ export class BoxofficeChartsComponent implements OnInit {
     }
     this.chart?.update();
   }
-  updateData(year: number) {
+  updateData(year: Number) {
     this.boxOfficeServer.getDailyDataVersusYear(year).subscribe(
       this.processResult()
     );
+    if(this.isAuthenticated){
+      this.updateUserSetting("boxOfficeYear", year);
+    }
   }
+  retrieveUserSetting(key: string){
+    this.oktaAuth.getUser().then(
+      (res: any) =>{
+        let userSettingRequest = new UserSettingRequest();
+        userSettingRequest.email = res.email;
+        userSettingRequest.setting = new Setting(key, null);
+        this.settingsService.getSetting(userSettingRequest).subscribe(
+          (data) => {
+            console.log(Number.parseInt(data.value))
+            this.comparisonYear = Number.parseInt(data.value)
+            this.updateData(this.comparisonYear)
+          }
+        );
+      }
+    )
+  }
+  updateUserSetting(key: String, value: any){
+    this.oktaAuth.getUser().then(
+      (res: any) =>{
+        let userSettingRequest = new UserSettingRequest();
+        userSettingRequest.email = res.email;
+        userSettingRequest.setting = new Setting(key, value);
+        this.settingsService.setSetting(userSettingRequest).subscribe();
+      }
+    )
+  
+  }
+
   clearExistingChartData(){
     this.lineChartData.datasets[0].data = [];
     this.lineChartData.datasets[1].data = [];

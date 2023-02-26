@@ -8,6 +8,7 @@
 <li>Authentication interceptor service for protected routes that require Okta Auth Token</li>
 <li>Charts for data built with ng2-charts package and Chart.js</li>
 <li>Node configured for SSL authentication. </li>
+<li>Stores and retrieves user settings from user management server.</li>
 
 # Components
 

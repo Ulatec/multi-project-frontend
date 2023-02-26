@@ -21,7 +21,7 @@ export class AuthInterceptorService implements HttpInterceptor{
     // Only add an access token for secured endpoints
     const securedEndpoints = [endPoint];
 
-    if (securedEndpoints.some(url => request.urlWithParams.includes(url))) {
+    //if (securedEndpoints.some(url => request.urlWithParams.includes(url))) {
 
       // get access token
       const accessToken = this.oktaAuth.getAccessToken();
@@ -33,7 +33,7 @@ export class AuthInterceptorService implements HttpInterceptor{
           Authorization: 'Bearer ' + accessToken
         }
       });
-    }
+    //}
 
     return await lastValueFrom(next.handle(request));
   }
