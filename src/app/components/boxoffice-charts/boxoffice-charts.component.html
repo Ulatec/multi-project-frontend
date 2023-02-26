@@ -5,7 +5,7 @@
                 <div class="col-xs-1">
                     <label class="light-color mr-4">Days to calculate rolling average </label>
                     <br>
-                    <select #starttype id="start-type" ng-model="comparisonYear"
+                    <select [value]="comparisonYear" #starttype id="start-type" ng-model="comparisonYear"
                         (change)="setComparisonYear(starttype.value)">
                         <option>2022</option>
                         <option>2021</option>

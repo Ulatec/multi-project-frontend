@@ -7,11 +7,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BoxofficeService {
-  apiUrl:string = environment.eurekaNamingServer + "BOX-OFFICE-TRACKER/"
-
+  //apiUrl:string = environment.eurekaNamingServer + "BOX-OFFICE-TRACKER/"
+  apiUrl:string =  "http://localhost:7777/"
   constructor(private httpClient: HttpClient) { }
 
-  getDailyDataVersusYear(year: number): Observable<getDailyBoxOffice> {
+  getDailyDataVersusYear(year: Number): Observable<getDailyBoxOffice> {
   
     const searchUrl = `${this.apiUrl}` + "getCurrentYearOnYearDifference/" + year;
     return this.httpClient.get<getDailyBoxOffice>(searchUrl)

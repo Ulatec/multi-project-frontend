@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
+import { Setting } from 'src/app/common/setting';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-dummy-protected',
@@ -8,11 +10,15 @@ import { OktaAuth } from '@okta/okta-auth-js';
   styleUrls: ['./dummy-protected.component.css']
 })
 export class DummyProtectedComponent implements OnInit {
+  settings: Setting[] = [];
+  subscriptionActive: boolean = false;
   isAuthenticated: boolean = false;
   userFullName: string = '';
   private storage: Storage = sessionStorage;
   constructor(private oktaAuthService: OktaAuthStateService,
-    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth) { }
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth,
+    private settingsSerivce: SettingsService
+    ) { }
 
   ngOnInit(): void {
 
@@ -39,5 +45,10 @@ export class DummyProtectedComponent implements OnInit {
         }
       )
     }
+  }
+  getAccountDetails(){
+    // this.settingsSerivce.getSettings(email: String).subscribe(
+    //   this.processResult()
+    // );
   }
 }

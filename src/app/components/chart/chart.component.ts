@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Chart, ChartConfiguration, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { DailyDataPoint } from 'src/app/common/daily-data-point';
@@ -6,6 +6,11 @@ import { DailyDataService } from 'src/app/services/daily-data.service';
 import { default as Annotation } from 'chartjs-plugin-annotation';
 import { DatePipe } from '@angular/common';
 import { enUS } from 'date-fns/locale';
+import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
+import { UserSettingRequest } from 'src/app/common/user-setting-request';
+import { Setting } from 'src/app/common/setting';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-chart',
@@ -13,19 +18,31 @@ import { enUS } from 'date-fns/locale';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
+  isAuthenticated: boolean = false;
   chartOptions!: any;
   dailyData: DailyDataPoint[] = [];
   daysAverageToCalculate: number = 7;
   private pageNumber: number = 0;
   private pageSize: number = 365;
   private newLabel? = 'New label';
-  constructor(private dailyDataService: DailyDataService, private datePipe: DatePipe) {
+  constructor(private oktaAuthService: OktaAuthStateService,
+    @Inject(OKTA_AUTH) private oktaAuth: OktaAuth,private dailyDataService: DailyDataService, private datePipe: DatePipe, private settingsService: SettingsService) {
     Chart.register(Annotation)
 
   }
 
   ngOnInit(): void {
-    this.updateData();
+    this.oktaAuthService.authState$.subscribe(
+      (result) => {
+        this.isAuthenticated = result.isAuthenticated!;
+        if(this.isAuthenticated){
+          this.retrieveUserSetting("boxOfficeYear")
+        }else{
+          this.updateData()
+        }
+        console.log(this.isAuthenticated)
+      }
+    )
   }
 
   buildChartOptions(daysToAverage: number) {
@@ -50,14 +67,21 @@ export class ChartComponent implements OnInit {
     }
     this.chart?.update();
   }
-  setDaysAverage(value: string){
-    this.daysAverageToCalculate = Number.parseInt(value)
+  setDaysAverage(value: any){
+    if(typeof value === "string"){
+      this.daysAverageToCalculate = Number.parseInt(value)
+    }else{
+      this.daysAverageToCalculate = value;
+    }
     this.updateData();
   }
   updateData() {
     this.dailyDataService.getDailyData(this.pageNumber - 1, this.pageSize).subscribe(
       this.processResult()
     );
+    if(this.isAuthenticated){
+      this.updateUserSetting("carvanaDaysAverage", this.daysAverageToCalculate);
+    }
   }
   processResult() {
     return (data: any) => {
@@ -66,6 +90,35 @@ export class ChartComponent implements OnInit {
       this.pageSize = data.page.size;
       this.buildChartOptions(this.daysAverageToCalculate);
     }
+  }
+  //REFACTOR
+  retrieveUserSetting(key: string){
+    this.oktaAuth.getUser().then(
+      (res: any) =>{
+        let userSettingRequest = new UserSettingRequest();
+        userSettingRequest.email = res.email;
+        userSettingRequest.setting = new Setting(key, null);
+        this.settingsService.getSetting(userSettingRequest).subscribe(
+          (data) => {
+            console.log(Number.parseInt(data.value))
+            this.daysAverageToCalculate = Number.parseInt(data.value)
+            this.setDaysAverage(this.daysAverageToCalculate)
+          }
+        );
+      }
+    )
+  }
+  //REFACTOR
+  updateUserSetting(key: String, value: any){
+    this.oktaAuth.getUser().then(
+      (res: any) =>{
+        let userSettingRequest = new UserSettingRequest();
+        userSettingRequest.email = res.email;
+        userSettingRequest.setting = new Setting(key, value);
+        this.settingsService.setSetting(userSettingRequest).subscribe();
+      }
+    )
+  
   }
   clearExistingChartData(){
     this.lineChartData.datasets[0].data = [];
