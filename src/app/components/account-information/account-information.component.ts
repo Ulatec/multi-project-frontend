@@ -15,6 +15,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./account-information.component.css']
 })
 export class AccountInformationComponent implements OnInit {
+    subscriptionExpirationDate!: Date;
     checkoutFormGroup!: FormGroup;
     paymentInfo: PaymentInfo = new PaymentInfo();
     cardElement: any;
@@ -83,6 +84,7 @@ export class AccountInformationComponent implements OnInit {
       return async (data: any) => {
         console.log(`AccountInformation: ` + JSON.stringify(data))
         this.subscriptionActive = data.subscriptionActive;
+        this.subscriptionExpirationDate = data.subscriptionExpiration;
         if(!this.subscriptionActive){
           console.log(`build form`)
           this.purchaseDisabled = false;

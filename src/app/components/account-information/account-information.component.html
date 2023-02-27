@@ -16,7 +16,9 @@
 
                 <div class="col-xs-6">
                     <p class="information-title">Subscription Status</p>
-                    <p class="information">{{ subscriptionActive }}</p>
+                    <p *ngIf="subscriptionActive" class="information">Active. Expires {{ subscriptionExpirationDate }}`</p>
+                    <p *ngIf="!subscriptionActive" class="information">Inactive. Subscribed Below.</p>
+                    
 
                         <!-- Stripe Element Container Section -->
                         <div *ngIf="!subscriptionActive" formGroupName="creditCard" class="form-area">
