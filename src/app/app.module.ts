@@ -24,6 +24,7 @@ import { BoxofficeChartsComponent } from './components/boxoffice-charts/boxoffic
 import { TopMoviesComponent } from './components/top-movies/top-movies.component';
 import { AccountInformationComponent } from './components/account-information/account-information.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 const oktaConfig = AppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -77,6 +78,7 @@ const routes: Routes = [
     NgChartsModule,
     OktaAuthModule,
     CommonModule,
+    NgbModule,
   ],
   providers: [DatePipe,  {provide: OKTA_CONFIG, useValue: {oktaAuth}},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],

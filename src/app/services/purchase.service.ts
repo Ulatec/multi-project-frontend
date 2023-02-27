@@ -24,12 +24,13 @@ export class PurchaseService {
     return this.httpClient.post<PaymentInfo>(this.stripePaymentIntentUrl, paymentInfo);
   }
   purchaseProductTime(result: any): Observable<any>{
-    //REFACTOR
-    let stripeResponse = new StripeResponse(); 
-    stripeResponse.amount = result.paymentIntent.amount;
-    stripeResponse.id = result.paymentIntent.id;
-    stripeResponse.email = result.paymentIntent.receipt_email;
-    stripeResponse.status = result.paymentIntent.status;
-    return this.httpClient.post<any>(this.purchaseUrl, stripeResponse);
+
+    return this.httpClient.post<any>(this.purchaseUrl, this.buildStripeResponse(result));
+  }
+
+  buildStripeResponse(result: any): StripeResponse{
+    return new StripeResponse(result.paymentIntent.amount,
+      result.paymentIntent.receipt_email, result.paymentIntent.payment_method,
+      result.paymentIntent.id, result.paymentIntent.status);
   }
 }
