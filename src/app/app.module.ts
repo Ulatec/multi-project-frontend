@@ -17,13 +17,13 @@ import{ OktaAuthGuard, OktaAuthModule, OktaCallbackComponent,OKTA_CONFIG} from '
 import {OktaAuth} from '@okta/okta-auth-js';
 import AppConfig from './config/app-config';
 import { ForecastComponent } from './components/forecast/forecast.component';
-import { DummyProtectedComponent } from './components/dummy-protected/dummy-protected.component';
 import { DateHeaderComponent } from './components/date-header/date-header.component';
 import { FractalRangeComponent } from './components/fractal-range/fractal-range.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { BoxofficeChartsComponent } from './components/boxoffice-charts/boxoffice-charts.component';
 import { TopMoviesComponent } from './components/top-movies/top-movies.component';
-
+import { AccountInformationComponent } from './components/account-information/account-information.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 const oktaConfig = AppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
@@ -34,7 +34,7 @@ function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector) {
 }
 var CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 const routes: Routes = [
-  {path: 'dummyProtected', component: DummyProtectedComponent, canActivate: [OktaAuthGuard],
+  {path: 'account', component: AccountInformationComponent, canActivate: [OktaAuthGuard],
   data: {onAuthRequired: sendToLoginPage} },
   {path: 'boxoffice/chart', component: BoxofficeChartsComponent},
   {path: 'boxoffice/topmovies', component: TopMoviesComponent},
@@ -66,7 +66,8 @@ const routes: Routes = [
     DateHeaderComponent,
     FractalRangeComponent,
     BoxofficeChartsComponent,
-    TopMoviesComponent
+    TopMoviesComponent,
+    AccountInformationComponent
     
   ],
   imports: [

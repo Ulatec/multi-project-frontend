@@ -9,6 +9,8 @@
 <li>Charts for data built with ng2-charts package and Chart.js</li>
 <li>Node configured for SSL authentication. </li>
 <li>Stores and retrieves user settings from user management server. <a href="https://github.com/Ulatec/user-manager">user-manager</a></li>
+<li>Account information page with Stripe API support. (Uses PaymentIntent API in conjunction with user management server to authorize payment.</li>
+<li>Ability to pay for an active subscription to use the product/platform</li>
 
 # Components
 

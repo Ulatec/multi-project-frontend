@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   eurekaNamingServer: "http://localhost:8765/",
+  stripePublishableKey: ""
 };
 
 /*

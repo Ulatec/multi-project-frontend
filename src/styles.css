@@ -316,6 +316,26 @@ input.au-input.au-input-xl{
     transform:translate(-50%,-50%)
 }
 
+/*
+ * ----------------------------
+ * Account Information
+ * ----------------------------
+ */
+
+.account-title{
+    color: rgba(233,242,249,255)
+}
+.information-title{
+    color: rgba(233,242,249,255)
+}
+.information{
+    color: rgba(233,242,249,255)
+}
+#card-element{
+    width: 500px;
+}
+
+
 /* 
  * ----------------------------
  * Left Menu Bar

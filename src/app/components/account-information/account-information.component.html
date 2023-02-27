@@ -1,0 +1,40 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-6">
+                    <div *ngIf="isAuthenticated && userFullName" class="login-status-user-info account-title">
+                        Welcome back {{ userFullName}}!
+                    </div>
+                    <table>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-xs-6">
+                    <p class="information-title">Subscription Status</p>
+                    <p class="information">{{ subscriptionActive }}</p>
+
+                        <!-- Stripe Element Container Section -->
+                        <div *ngIf="!subscriptionActive" formGroupName="creditCard" class="form-area">
+                            <h3> Credit or Debit Card</h3>
+
+                            <div id="card-element">
+                            </div>
+                            <div id="card-errors" class="displayError.textContent!=='': 'alert alert-danger mt-2'">
+
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info" [disabled]="purchaseDisabled" (click)="onSubmit()">
+                                Purchase
+                            </button>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
